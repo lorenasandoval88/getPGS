@@ -1,0 +1,19 @@
+{
+  "name": "getpgs",
+  "version": "1.0.0",
+  "description": "Retrieve PGS scores",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lorenasandoval88/getPGS.git"
+  },
+  "author": "Lorena Sandoval",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lorenasandoval88/getPGS/issues"
+  },
+  "homepage": "https://github.com/lorenasandoval88/getPGS#readme"
+}
