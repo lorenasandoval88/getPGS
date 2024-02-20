@@ -1,2 +1,2 @@
 # getPGS
-Retrieve scoring files from the PGS catalog
+Retrieve scoring files from the [PGS catalog](https://www.pgscatalog.org/).
