@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lorenasandoval88/getPGS/issues"
   },
-  "homepage": "https://github.com/lorenasandoval88/getPGS#readme"
+  "homepage": "https://github.com/lorenasandoval88/getPGS#readme",
+  "dependencies": {
+    "pako": "^2.1.0"
+  }
 }

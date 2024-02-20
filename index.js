@@ -1,5 +1,5 @@
-import pako from 'https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.esm.mjs'
-
+//import pako from 'https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.esm.mjs'
+const pako = require('pako');
 //---------------------------------------------------------------
 // search for traits by different parameters
 function searchTraits(traitFiles){
@@ -255,7 +255,9 @@ async function getPGSTxts(ids) {
     return data
 }
 
-module.exports = {
+module.exports =
+
+{
     searchTraits,
     getPGSTxts,
     getPGSTxtsHm,
