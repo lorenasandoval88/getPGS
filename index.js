@@ -64,6 +64,9 @@ async function parsePGS(id, txt) {
         })
         return r
     })
+    // bigquery format
+   obj.dt2 =  obj.dt.map( (x, idx) => Object.fromEntries(obj.cols.map((_, i) => [obj.cols[i], obj.dt[idx][i]])) )
+
     // parse metadata
     obj.meta.txt.filter(r => (r[1] != '#')).forEach(aa => {
         aa = aa.slice(1).split('=')
@@ -246,7 +249,8 @@ async function getPGSTxtsHm(ids) {
     }))
     return data
 }
-async function getPGSTxts(ids) {
+async function getPGSTxts(type, trait, varMin, varMax) {
+    let ids = getPGSIds(type, trait, varMin, varMax)
     let data = await Promise.all(ids.map(async (id, i) => {
         let score = await loadScore(id)
         return score
@@ -270,3 +274,4 @@ module.exports =
     getPGSIds
 
 }
+//module.exports.fetchAll2 = fetchAll2;
