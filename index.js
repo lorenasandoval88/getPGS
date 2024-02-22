@@ -66,7 +66,6 @@ async function parsePGS(id, txt) {
     })
     // bigquery format
     let dt2 = obj.dt.map( (x, idx) => Object.fromEntries(obj.cols.map((_, i) => [obj.cols[i], obj.dt[idx][i]])) )
-    dt2.forEach(v => {v.pgsID = id});
    obj.dt2 =  dt2
     // parse metadata
     obj.meta.txt.filter(r => (r[1] != '#')).forEach(aa => {
@@ -157,6 +156,7 @@ async function loadScoreHm(entry = 'PGS000004', build = 37, range) {
 async function getAllCategories(traitCategories, traitFiles, scoringFiles) {
     let outerObj = {}
     traitCategories.map(async x => {
+        console.log("category_______________", x)
         let traitFilesArr = []
         let pgsIds = []
         traitFiles.map(tfile => {
@@ -168,7 +168,9 @@ async function getAllCategories(traitCategories, traitFiles, scoringFiles) {
             pgsIds.push(traitFilesArr.flatMap(x => x.associated_pgs_ids).sort().filter((v, i) => traitFilesArr.flatMap(x => x.associated_pgs_ids).sort().indexOf(v) == i))
         }
         let pgsIds2 = pgsIds.flatMap(x => x)
+        console.log("pgsIds",pgsIds2.length)
         let pgsInfo = pgsIds2.map(id => { // pgs variant number info
+           // console.log("let pgsInfo = pgsIds2.map(id => {",id)
             let result = scoringFiles.filter(obj => {
                 return obj.id === id
             })
@@ -187,13 +189,20 @@ async function getAllCategories(traitCategories, traitFiles, scoringFiles) {
 
 // subset one category by variant number
 async function getPGSidsForOneTraitCategory( category,traitFiles, scoringFiles, varMin, varMax,) {
-    console.log("getPGSidsForOneTraitCategory:", category, ", var min and max: ", varMin, varMax)
-    let categories = Array.from(new Set(traitFiles.flatMap(x => x["trait_categories"]).sort().filter(e => e.length).map(JSON.stringify)), JSON.parse)
+    console.log("Category:", category, ", var min and max: ", varMin, varMax)
+   console.log("Category:", category)
+
+    let categories = Array.from(new Set(traitFiles.flatMap(x => {console.log(x["trait_categories"]);x["trait_categories"]})
+                                            .sort()
+                                            .filter(e => e.length)
+                                            .map(JSON.stringify)), JSON.parse)
     let traitCategories2 =  (await ((await getAllCategories(categories, traitFiles, scoringFiles))[category])).pgsInfo
         // filter ids that don't have variant number/info
         .filter(x => x != undefined)
         .filter(x => x.variants_number < varMax & x.variants_number > varMin)
-        traitCategories2.forEach(v => {v.category = category});
+        traitCategories2.forEach(v => {v.trait_category = category});
+        console.log("traitCategories2", traitCategories2)
+
 
     return traitCategories2
 }
@@ -226,7 +235,6 @@ async function getPGSidsForOneTraitId( trait, traitFiles, scoringFiles, varMin, 
 }
 //-----------------------------------------------------------------------------------------
 // 3. 
-
 async function getPGSIds(traitType, trait, varMin, varMax){
     let res = ""
     let traitFiles = (await fetchAll2('https://www.pgscatalog.org/rest/trait/all')).flatMap(x => x)
