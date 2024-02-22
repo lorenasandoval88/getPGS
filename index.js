@@ -193,6 +193,8 @@ async function getPGSidsForOneTraitCategory( category,traitFiles, scoringFiles, 
         // filter ids that don't have variant number/info
         .filter(x => x != undefined)
         .filter(x => x.variants_number < varMax & x.variants_number > varMin)
+        traitCategories2.forEach(v => {v.category = category});
+
     return traitCategories2
 }
 //-----------------------------------------------------------------------------------------
