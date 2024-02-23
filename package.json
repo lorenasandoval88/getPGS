@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lorenasandoval88/getPGS#readme",
   "dependencies": {
+    "getpgs2": "^1.0.4",
     "pako": "^2.1.0"
   }
 }

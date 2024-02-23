@@ -156,11 +156,12 @@ async function loadScoreHm(entry = 'PGS000004', build = 37, range) {
 async function getAllCategories(traitCategories, traitFiles, scoringFiles) {
     let outerObj = {}
     traitCategories.map(async x => {
-        console.log("category_______________", x)
+        //console.log("category_______________", x)
         let traitFilesArr = []
         let pgsIds = []
         traitFiles.map(tfile => {
             if (tfile["trait_categories"].includes(x)) {
+                //console.log("tfile[trait_categories]",tfile["trait_categories"])
                 traitFilesArr.push(tfile)
             }
         })
@@ -168,7 +169,7 @@ async function getAllCategories(traitCategories, traitFiles, scoringFiles) {
             pgsIds.push(traitFilesArr.flatMap(x => x.associated_pgs_ids).sort().filter((v, i) => traitFilesArr.flatMap(x => x.associated_pgs_ids).sort().indexOf(v) == i))
         }
         let pgsIds2 = pgsIds.flatMap(x => x)
-        console.log("pgsIds",pgsIds2.length)
+        //console.log("pgsIds",pgsIds2.length)
         let pgsInfo = pgsIds2.map(id => { // pgs variant number info
            // console.log("let pgsInfo = pgsIds2.map(id => {",id)
             let result = scoringFiles.filter(obj => {
@@ -189,19 +190,16 @@ async function getAllCategories(traitCategories, traitFiles, scoringFiles) {
 
 // subset one category by variant number
 async function getPGSidsForOneTraitCategory( category,traitFiles, scoringFiles, varMin, varMax,) {
-    console.log("Category:", category, ", var min and max: ", varMin, varMax)
-   console.log("Category:", category)
+    console.log("Category::::::1", category, ", var min and max: ", varMin, varMax)
+    let categories = Array.from(new Set(traitFiles.flatMap((x,i) => {return x["trait_categories"]}))).sort()
 
-    let categories = Array.from(new Set(traitFiles.flatMap(x => {console.log(x["trait_categories"]);x["trait_categories"]})
-                                            .sort()
-                                            .filter(e => e.length)
-                                            .map(JSON.stringify)), JSON.parse)
+    //console.log("categories2",categories)
     let traitCategories2 =  (await ((await getAllCategories(categories, traitFiles, scoringFiles))[category])).pgsInfo
         // filter ids that don't have variant number/info
         .filter(x => x != undefined)
         .filter(x => x.variants_number < varMax & x.variants_number > varMin)
         traitCategories2.forEach(v => {v.trait_category = category});
-        console.log("traitCategories2", traitCategories2)
+        //console.log("traitCategories2", traitCategories2)
 
 
     return traitCategories2
