@@ -253,6 +253,7 @@ async function getPGSIds(traitType, trait, varMin, varMax){
     }
 // Get pgs scores in text format from cache or new--------------------------------
 async function getPGSTxtsHm(ids) {
+    console.log("getPGSTxtsHm(ids)",ids)
     let data = await Promise.all(ids.map(async (id, i) => {
         console.log("async function getPGSTxtsHm(ids) :",id)
            let score = parsePGS(id, await loadScoreHm(id))
