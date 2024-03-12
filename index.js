@@ -109,6 +109,7 @@ async function loadScore(entry = 'PGS000004', build = 37, range) {
         txt = `:( Error loading PGS file. HTTP Response Code: ${response?.status}`
         document.getElementById('pgsTextArea').value = txt
     }
+    console.log("text")
     return txt
 }
 async function loadScoreHm(entry = 'PGS000004', build = 37, range) {
@@ -189,8 +190,8 @@ async function getAllCategories(traitCategories, traitFiles, scoringFiles) {
 }
 
 // subset one category by variant number
-async function getPGSidsForOneTraitCategory( category,traitFiles, scoringFiles, varMin, varMax,) {
-    console.log("Category::::::1", category, ", var min and max: ", varMin, varMax)
+async function getPGSidsForOneTraitCategory( category,traitFiles, scoringFiles, varMin, varMax) {
+   // console.log("Category::::::1", category, ", var min and max: ", varMin, varMax)
     let categories = Array.from(new Set(traitFiles.flatMap((x,i) => {return x["trait_categories"]}))).sort()
 
     //console.log("categories2",categories)
