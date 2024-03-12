@@ -259,6 +259,7 @@ async function getPGSTxtsHm(ids) {
            let score = parsePGS(id, await loadScoreHm(id))
         return score
     }))
+    console.log("data",data)
     return data
 }
 async function getPGSTxts(type = "traitLabels", trait = "type 2 diabetes mellitus", varMin = 0, varMax = 50) {
