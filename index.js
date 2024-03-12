@@ -81,7 +81,7 @@ async function loadScore(entry = 'PGS000004', build = 37, range) {
     entry = "PGS000000".slice(0, -entry.length) + entry
     // https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS000004/ScoringFiles/Harmonized/PGS000004_hmPOS_GRCh37.txt.gz
     const url = `https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/${entry}/ScoringFiles/${entry}.txt.gz` //
-    console.log("loadng unharmonized pgs score from url",url)
+   // console.log("loadng unharmonized pgs score from url",url)
 
     if (range) {
         if (typeof (range) == 'number') {
@@ -117,7 +117,7 @@ async function loadScoreHm(entry = 'PGS000004', build = 37, range) {
     entry = "PGS000000".slice(0, -entry.length) + entry
     // https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS000004/ScoringFiles/Harmonized/PGS000004_hmPOS_GRCh37.txt.gz
     const url = `https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/${entry}/ScoringFiles/Harmonized/${entry}_hmPOS_GRCh${build}.txt.gz` //
-    console.log("loadng harmonized pgs score from url",url)
+    //console.log("loadng harmonized pgs score from url",url)
     if (range) {
         if (typeof (range) == 'number') {
             range = [0, range]
@@ -139,7 +139,7 @@ async function loadScoreHm(entry = 'PGS000004', build = 37, range) {
     let response
     response = await fetch(url) // testing url 'https://httpbin.org/status/429'
     if (response?.ok) {
-        ////console.log('Use the response here!');
+        console.log('PGS file loaded!');
     } else {
         txt = `:( Error loading PGS file. HTTP Response Code: ${response?.status}`
         document.getElementById('pgsTextArea').value = txt
@@ -254,6 +254,7 @@ async function getPGSIds(traitType, trait, varMin, varMax){
 // Get pgs scores in text format from cache or new--------------------------------
 async function getPGSTxtsHm(ids) {
     let data = await Promise.all(ids.map(async (id, i) => {
+        console.log("async function getPGSTxtsHm(ids) :",id)
            let score = parsePGS(id, await loadScoreHm(id))
         return score
     }))
