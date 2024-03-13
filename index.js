@@ -257,8 +257,7 @@ async function getPGSTxtsHm(ids) {
     let data = await Promise.all(ids.map(async (id, i) => {
         console.log("async function getPGSTxtsHm(ids) :",id)
            let score = parsePGS(id, await loadScoreHm(id))
-           console.log("score")
-
+           console.log("id",id)
         return score
     }))
     return data
