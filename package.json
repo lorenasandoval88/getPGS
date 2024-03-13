@@ -1,6 +1,6 @@
 {
   "name": "getpgs2",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Retrieve PGS scores",
   "main": "index.js",
   "scripts": {
