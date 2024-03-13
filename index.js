@@ -142,6 +142,7 @@ async function loadScoreHm(entry = 'PGS000004', build = 37, range) {
         console.log('PGS file loaded!');
     } else {
         txt = `:( Error loading PGS file. HTTP Response Code: ${response?.status}`
+        console.log(txt);
         document.getElementById('pgsTextArea').value = txt
     }
     return txt
